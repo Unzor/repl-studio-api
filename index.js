@@ -92,7 +92,7 @@ function handleError(e) {
 
 function start(context) {
   r = repl.start({
-    prompt: process.env.PRYBAR_PS1,
+    prompt: process.env.Y_PS1,
     useGlobal: true,
   });
 
@@ -134,16 +134,16 @@ global.confirm = (q) => {
 
 if (req.body.code) {
   vm.runInThisContext(req.body.code);
-  if (process.env.PRYBAR_INTERACTIVE) {
+  if (process.env.Y_INTERACTIVE) {
     start();
   }
-} else if (process.env.PRYBAR_EXP) {
- console.log(vm.runInThisContext(process.env.PRYBAR_EXP));
-  if (process.env.PRYBAR_INTERACTIVE) {
+} else if (process.env.Y_EXP) {
+ console.log(vm.runInThisContext(process.env.Y_EXP));
+  if (process.env.Y_INTERACTIVE) {
     start();
   }
-} else if (process.env.PRYBAR_FILE) {
-  const mainPath = path.resolve(process.env.PRYBAR_FILE);
+} else if (process.env.Y_FILE) {
+  const mainPath = path.resolve(process.env.Y_FILE);
   const main = fs.readFileSync(mainPath, "utf-8");
   const module = new Module(mainPath, null);
 
@@ -189,11 +189,11 @@ if (req.body.code) {
     }
   }
 
-  if (process.env.PRYBAR_INTERACTIVE) {
+  if (process.env.Y_INTERACTIVE) {
     process.once("SIGINT", () => start());
     process.once("beforeExit", () => start());
   }
-} else if (process.env.PRYBAR_INTERACTIVE) {
+} else if (process.env.Y_INTERACTIVE) {
   start();
 }
 
