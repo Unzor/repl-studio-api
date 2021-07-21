@@ -35,11 +35,8 @@ console.log(result);
 });
 
 app.post('/interpretJS', function (req, res) {
-     console.log=function(a){
-   res.json({result: a});
-   };
  _interpreter.interpret(req.body.code, function(a){
-console.log(a);
+   res.json({result: a});
  });
 });
 
